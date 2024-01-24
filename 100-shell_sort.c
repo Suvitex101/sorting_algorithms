@@ -1,18 +1,18 @@
 #include "sort.h"
 
 /**
- * get_max_hld - gets the a largest Knuth Sequence
+ * get_max_gap - gets the a largest Knuth Sequence gap for this size
  * @size: the size of the array
- * Return: the hld size
+ * Return: the gap size
  */
-size_t get_m_hld(size_t sz)
+size_t get_max_gap(size_t size)
 {
-	size_t a;
+	size_t n;
 
-	a = 1;
-	while (a < sz)
-		a = a * 3 + 1;
-	return ((a - 1) / 3);
+	n = 1;
+	while (n < size)
+		n = n * 3 + 1;
+	return ((n - 1) / 3);
 }
 
 /**
@@ -23,21 +23,21 @@ size_t get_m_hld(size_t sz)
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t hld, i, j;
+	size_t gap, i, j;
 	int temp;
 
 	if (!array || !size)
 		return;
 
 
-	for (hld = get_m_hld(size); hld; hld = (hld - 1) / 3)
+	for (gap = get_max_gap(size); gap; gap = (gap - 1) / 3)
 	{
-		for (i = hld; i < size; i++)
+		for (i = gap; i < size; i++)
 		{
 			temp = array[i];
-			for (j = i; j > hld - 1 && array[j - hld] > hld; j -= hld)
+			for (j = i; j > gap - 1 && array[j - gap] > temp; j -= gap)
 			{
-				array[j] = array[j - hld];
+				array[j] = array[j - gap];
 			}
 			array[j] = temp;
 		}
